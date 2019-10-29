@@ -1,26 +1,62 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import WaitingRoom from './pages/WaitingRoom';
+
+type State = {
+  rideRequest?: RideRequest;
+  rideStatus?: RideStatus;
+};
+
+type Action =
+  | { type: 'submitRide'; details: RideRequest }
+  | { type: 'rideAccepted'; status: RideStatus };
+
+type RideRequest = {
+  start: string;
+  end: string;
+  pax: number;
+};
+
+type RideStatus = {
+  eta: number;
+};
+
+export const DispatchContext = React.createContext<React.Dispatch<Action>>(
+  _ => {}
+);
+export const StateContext = React.createContext<State>({});
+
+const reducer = (state: State, action: Action): State => {
+  let newState = { ...state };
+
+  if (action.type === 'submitRide') {
+    newState.rideRequest = action.details;
+  }
+  if (action.type === 'rideAccepted') {
+    newState.rideStatus = action.status;
+  }
+  return newState;
+};
 
 const App: React.FC = () => {
+  const [state, dispatch] = React.useReducer(reducer, {});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.StrictMode>
+      <DispatchContext.Provider value={dispatch}>
+        <StateContext.Provider value={state}>
+          <Router>
+            <Switch>
+              <Route path="/" exact children={<Home />} />
+              <Route path="/waitingroom" children={<WaitingRoom />} />
+            </Switch>
+          </Router>
+        </StateContext.Provider>
+      </DispatchContext.Provider>
+    </React.StrictMode>
   );
-}
+};
 
 export default App;

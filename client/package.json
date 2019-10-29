@@ -7,9 +7,12 @@
     "@types/node": "12.11.1",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
+    "@types/react-router-dom": "^5.1.0",
+    "moment": "^2.24.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.2.0",
     "typescript": "3.6.4"
   },
   "scripts": {
@@ -19,7 +22,18 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-prettier/recommended"
+    ]
   },
   "browserslist": {
     "production": [
@@ -32,5 +46,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "stylelint": "^11.1.1",
+    "stylelint-config-prettier": "^6.0.0",
+    "stylelint-prettier": "^1.1.1"
   }
 }
