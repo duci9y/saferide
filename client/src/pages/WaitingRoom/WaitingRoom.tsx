@@ -7,8 +7,8 @@ const WaitingRoom: React.FC = () => {
   const { rideRequest, rideStatus } = React.useContext(StateContext);
 
   if (rideStatus !== undefined) {
-    const displayETA = moment()
-      .add(rideStatus.eta, 'seconds')
+    const displayETA = moment(rideStatus.pickup)
+      // .add(rideStatus.eta, 'seconds')
       .fromNow();
 
     return <div>You will be picked up {displayETA}</div>;

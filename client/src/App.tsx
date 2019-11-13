@@ -7,6 +7,7 @@ import WaitingRoom from './pages/WaitingRoom';
 type State = {
   rideRequest?: RideRequest;
   rideStatus?: RideStatus;
+  user?: User;
 };
 
 type Action =
@@ -20,7 +21,25 @@ type RideRequest = {
 };
 
 type RideStatus = {
-  eta: number;
+  licensePlate?: string;
+  pickup: Date;
+  dropoff: Date;
+  stopsRemaining: number;
+  state: 'waiting' | 'pendingPickup' | 'onboard' | 'done';
+  location: string;
+  shared: boolean;
+};
+
+type User = {
+  fname: string;
+  fullname: string;
+  phone: string;
+};
+
+type SystemStatus = {
+  utilizationDescription: string;
+  isUp: boolean;
+  announcements: string;
 };
 
 export const DispatchContext = React.createContext<React.Dispatch<Action>>(

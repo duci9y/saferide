@@ -18,7 +18,17 @@ const Home: React.FC = () => {
         dispatch({ type: 'submitRide', details: { start, end, pax } });
         history.push('/waitingroom');
         setTimeout(() => {
-          dispatch({ type: 'rideAccepted', status: { eta: 300 } });
+          dispatch({
+            type: 'rideAccepted',
+            status: {
+              pickup: new Date(),
+              dropoff: new Date(),
+              stopsRemaining: 4,
+              state: 'pendingPickup',
+              location: 'Coolidge Corner',
+              shared: true
+            }
+          });
         }, 1000);
       }}
     >
