@@ -22,4 +22,6 @@ Type "help" for help.
 user=# >> \q
 ```
 
-* 
+* Install gdal
+
+* Install postgis
