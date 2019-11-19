@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import django_heroku
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'db_backend.apps.DbBackendConfig',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,15 +77,15 @@ WSGI_APPLICATION = 'saferide.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'saferide',
-        'USER': 'ywatanabe',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'saferide',
+#         'USER': 'ywatanabe',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -122,8 +124,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+DATABASES = {}
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+django_heroku.settings(locals())
+
 STATIC_URL = '/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../build"),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+del DATABASES['default']['OPTIONS']['sslmode']
