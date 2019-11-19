@@ -24,4 +24,24 @@ user=# >> \q
 
 * Install gdal
 
+MacOS (homebrew)
+```
+>> brew install gdal
+```
+
 * Install postgis
+MacOS (homebrew)
+```
+>> brew install postgis
+```
+
+* At this point all dependencies should be fulfilled, so we can migrate our database
+```
+# within pipenv shell
+>> ./manage.py makemigrations
+# some output
+>> ./manage.py migrate
+# some output
+>> ./manage.py runserver
+# check that Django is hosting website on localhost:8000
+```
