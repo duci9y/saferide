@@ -11,6 +11,12 @@ const Home: React.FC = () => {
 
   const history = useHistory();
 
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      console.log(pos);
+    });
+  }
+
   return (
     <form
       onSubmit={e => {
