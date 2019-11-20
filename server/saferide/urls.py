@@ -20,6 +20,6 @@ from django.conf import settings
 from django.contrib.staticfiles.views import serve
 
 urlpatterns = [
-    path('admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
     path('', lambda req: serve(req, 'index.html'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
