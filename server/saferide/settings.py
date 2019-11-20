@@ -124,12 +124,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+django_heroku.settings(locals())
+
 DATABASES = {}
 
 DATABASES['default'] = dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-
-django_heroku.settings(locals())
 
 STATIC_URL = '/'
 STATICFILES_DIRS = [
@@ -137,4 +137,5 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-del DATABASES['default']['OPTIONS']['sslmode']
+if DATABASES.get('default') and DATABASES['default'].get('OPTIONS'):
+    del DATABASES['default']['OPTIONS']['sslmode']
