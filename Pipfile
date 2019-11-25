@@ -11,6 +11,8 @@ django = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 django-heroku = "*"
+django-rest = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"
