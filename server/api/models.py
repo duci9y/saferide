@@ -3,7 +3,7 @@ from django.contrib.auth.models import User as dj_user
 
 # Users Table
 class User(models.Model):
-    uuid                = models.CharField(max_length=60)
+    uuid                = models.CharField(max_length=60, primary_key=True)
     datetime_created    = models.DateTimeField(auto_now_add=True)
     datetime_updated    = models.DateTimeField(auto_now=True)
     abuse_lock          = models.BooleanField(default=False)
@@ -25,6 +25,15 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+    def as_dict(self):
+        return {'user': self.user.pk,
+                'current_loc': str(self.current_loc),
+                'on_duty': self.on_duty,
+                'datetime_created': str(self.datetime_created),
+                'datetime_updated': str(self.datetime_updated),
+                'active': self.active
+                }
 
 
 # Rides Table
