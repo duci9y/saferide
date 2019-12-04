@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'drivers', views.DriverViewSet)
 router.register(r'rides', views.RideViewSet)
+router.register(r'users/create_ride', views.RideViewSet, basename='rides')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
